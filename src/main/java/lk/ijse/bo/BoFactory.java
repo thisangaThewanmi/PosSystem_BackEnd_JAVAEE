@@ -1,8 +1,6 @@
 package lk.ijse.bo;
 
-import lk.ijse.bo.impl.CustomerBoImpl;
 import lk.ijse.bo.impl.ItemBoImpl;
-import lk.ijse.dto.CustomerDto;
 
 public class BoFactory {
 
