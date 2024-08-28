@@ -11,7 +11,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     static String SAVE_CUSTOMER = "INSERT INTO customer (id,name,address,phone) VALUES (?,?,?,?)";
     static String UPDATE_CUSTOMER = "UPDATE customer SET name=?, address=?, phone=? WHERE id=?";
-    static String GET_CUSTOMER = "SELECT * FROM Student WHERE id=?";
+    static String GET_CUSTOMER = "SELECT * FROM customer WHERE id=?";
     static String DELETE_CUSTOMER = "DELETE FROM customer WHERE id=?";
     static String GET_ALL_CUSTOMER = "SELECT * FROM customer";
 
@@ -22,8 +22,8 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public boolean update(String id, Customer dto) throws SQLException {
-        return SQLUtil.execute(UPDATE_CUSTOMER,dto.getName(),dto.getAddress(),dto.getPhone(),id);
+    public boolean update(String id, Customer customer) throws SQLException {
+        return SQLUtil.execute(UPDATE_CUSTOMER,customer.getName(),customer.getAddress(),customer.getPhone(),id);
     }
 
     @Override

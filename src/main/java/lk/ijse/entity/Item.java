@@ -11,5 +11,5 @@ public class Item {
     private String  id;
     private String name;
     private String qty;
-    private int price;
+    private double price;
 }

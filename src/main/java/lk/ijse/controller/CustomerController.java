@@ -28,20 +28,26 @@ public class CustomerController extends HttpServlet {
 
        try(var writer = resp.getWriter()){
            ArrayList<CustomerDto> allCustomer = null;
+
+           Jsonb jsonb = JsonbBuilder.create();
+
+
+
            try {
                allCustomer = customerBo.getAllCustomer();
-               writer.write(allCustomer.toString());
+               String json = jsonb.toJson(allCustomer);
+               resp.getWriter().write(json); // Write only the JSON to response
 
                if(allCustomer.size() > 0){
-                   writer.write("All DataRetrived");
+                   System.out.println("All DataRetrived");
                }else{
-                   writer.write("No DataRetrived");
+                   System.out.println("All DataRetrived nooo........");
                }
            } catch (SQLException e) {
                throw new RuntimeException(e);
            }
 
-           writer.write(allCustomer.toString());
+
 
 
        }

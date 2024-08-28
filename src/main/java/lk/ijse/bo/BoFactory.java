@@ -1,6 +1,7 @@
 package lk.ijse.bo;
 
 import lk.ijse.bo.impl.ItemBoImpl;
+import lk.ijse.bo.impl.OrderBoImpl;
 
 public class BoFactory {
 
@@ -16,7 +17,7 @@ public class BoFactory {
     } // ussing singleton ensuring only 1 object is created
 
         public enum BOTypes{
-            CUSTOMER,ITEM;
+            CUSTOMER,ITEM,ORDER,ITEMCART;
         } //Enums are used here to represent the different types of business objects that the BoFactory can create. It makes the code more readable and type-safe, reducing the risk of errors like passing incorrect or invalid types.
 
 
@@ -28,6 +29,10 @@ public class BoFactory {
                 return new CustomerBoImpl();
                 case ITEM:
                     return  new ItemBoImpl();
+                    case ORDER:
+                        return  new OrderBoImpl();
+            case ITEMCART:
+                return  new ItemCartBoImpl();
             default:
                 return null;
 
