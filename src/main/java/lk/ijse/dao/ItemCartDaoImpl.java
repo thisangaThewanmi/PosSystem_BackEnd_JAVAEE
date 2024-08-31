@@ -1,14 +1,16 @@
 package lk.ijse.dao;
 
+import lk.ijse.entity.Item;
 import lk.ijse.entity.ItemCart;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ItemCartDaoImpl implements ItemCartDao {
 
     static String SAVE_ITEMCART  ="INSERT INTO itemCart (orderId, itemCode, itemName, qty, price,total)VALUES (?, ?, ?, ?, ?,?);";
-
+    static String GET_ALL_ITEMCART = "SELECT * FROM customer WHERE id=?";
     @Override
     public boolean save(ItemCart entity) throws SQLException {
         System.out.println(entity.getOrderId());
@@ -32,6 +34,15 @@ public class ItemCartDaoImpl implements ItemCartDao {
 
     @Override
     public ArrayList<ItemCart> getAll() throws SQLException {
-        return null;
+        ResultSet resultSet = SQLUtil.execute(GET_ALL_ITEMCART);
+
+        ArrayList<ItemCart> items = new ArrayList<>();
+
+        while (resultSet.next()) {
+            ItemCart itemCart = new ItemCart(resultSet.getString("orderId"),resultSet.getString("itemCode"),resultSet.getString("itemName"),resultSet.getInt("qty"),resultSet.getBigDecimal("price"),resultSet.getBigDecimal("total"));
+            items.add(itemCart);
+        }
+        return items;
     }
-}
+    }
+

@@ -15,7 +15,9 @@ public class OrderBoImpl implements OrderBo {
     OrderDao orderDao = (OrderDao) DaoFactory.getDaoFactory().getDao(DaoFactory.DaoTypes.ORDER);
     @Override
     public boolean saveOrder(OrderDto dto) throws SQLException {
-        return  orderDao.save(new Orders(dto.getOrderId(),dto.getOrderDate(), dto.getCustomerId(),dto.getCustomerName(),dto.getTotal()));
+        System.out.println("boimpl ekata awa");
+        return  orderDao.save(new Orders(dto.getOrderID(),dto.getOrderDate(), dto.getCustomerId(),dto.getCustomerName(),dto.getTotal(),dto.getDiscount(),dto.getSubTotal()));
+
     }
 
     @Override
@@ -34,7 +36,7 @@ public class OrderBoImpl implements OrderBo {
 
         ArrayList<OrderDto> orderDtos = new ArrayList<>();
         for (Orders order : allOrders) {
-            OrderDto orderDto = new OrderDto(order.getOrderId(),order.getOrderDate(),order.getCustomerId(),order.getCustomerName(),order.getTotal());
+            OrderDto orderDto = new OrderDto(order.getOrderID(),order.getOrderDate(),order.getCustomerId(),order.getCustomerName(),order.getTotal(),order.getDiscount(),order.getSubtotal());
             orderDtos.add(orderDto);
         }
         return orderDtos;

@@ -6,6 +6,7 @@ import lk.ijse.dao.ItemCartDao;
 import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.ItemCartDto;
 import lk.ijse.dto.ItemDto;
+import lk.ijse.entity.Customer;
 import lk.ijse.entity.ItemCart;
 
 import java.sql.SQLException;
@@ -32,7 +33,15 @@ public class ItemCartBoImpl implements ItemCartBo {
     }
 
     @Override
-    public ArrayList<ItemDto> getAllItemCarts() throws SQLException {
-        return null;
+    public ArrayList<ItemCartDto> getAllItemCarts() throws SQLException {
+        ArrayList<ItemCart> allItems = itemCartDao.getAll();
+        ArrayList<ItemCartDto> allItemDtos = new ArrayList<>();
+
+        for (ItemCart itemCart : allItems) {
+            allItemDtos.add(new ItemCartDto(itemCart.getOrderId(),itemCart.getItemCode(),itemCart.getItemName(),itemCart.getQty(),itemCart.getPrice(),itemCart.getTotal()));
+        }
+
+        return allItemDtos;
+
     }
 }

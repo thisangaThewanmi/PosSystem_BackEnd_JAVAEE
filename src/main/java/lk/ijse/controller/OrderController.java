@@ -10,14 +10,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.bo.BoFactory;
 import lk.ijse.bo.OrderBo;
 import lk.ijse.bo.impl.OrderBoImpl;
+import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.OrderDto;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
-@WebServlet("/order")
+@WebServlet("/orders")
 public class OrderController extends HttpServlet {
 
     OrderBo orderBo = (OrderBo) BoFactory.getBoFactory().getBo(BoFactory.BOTypes.ORDER);
@@ -26,6 +28,7 @@ public class OrderController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try(var writer = resp.getWriter()){
+
         if(req.getContentType().equals("application/json")) {
 
             ArrayList<OrderDto> allOrders = orderBo.getAllOrders();
@@ -54,27 +57,36 @@ public class OrderController extends HttpServlet {
 
         try(var writer = resp.getWriter()){
 
-            if(req.getContentType().equals("application/json")) {
+            if(req.getContentType().equals("application/json")){
+
+                System.out.println("json data retrived");
+
 
                 Jsonb jsonb = JsonbBuilder.create();
                 OrderDto orderDto = jsonb.fromJson(req.getReader(), OrderDto.class);
+                System.out.println("Order dto:  "+ orderDto.toString() );
 
                 boolean b = orderBo.saveOrder(orderDto);
+                System.out.println("b" + b);
 
                 if(b){
                     resp.setStatus(HttpServletResponse.SC_CREATED);
-                    resp.getWriter().println("Order created");
-                    writer.write("{\"status\":\"success\"}");
+                    System.out.println("Order saved sucessfully");
                 }else{
-                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    resp.getWriter().println("Order not created");
-                    writer.write("{\"status\":\"failed\"}");
+                    resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    System.out.println("Order placing failed");
                 }
             }
+
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
+
+
+
+
 
 
     @Override

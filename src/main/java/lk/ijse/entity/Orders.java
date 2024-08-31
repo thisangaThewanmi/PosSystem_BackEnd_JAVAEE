@@ -12,13 +12,17 @@ import java.util.Date;
 @Data
 
 public class Orders  {
-    private String orderId;
+    private String orderID;
 
-    private Date orderDate;
+    private String orderDate;
 
     private String customerId;
 
     private String customerName;
 
     private BigDecimal total;
+
+    private BigDecimal discount;
+
+    private BigDecimal subtotal;
 }

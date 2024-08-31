@@ -14,5 +14,5 @@ public interface ItemCartBo extends SuperBo{
 
     public boolean deleteItemCart(String id) throws SQLException;
 
-    public ArrayList<ItemDto> getAllItemCarts() throws SQLException;
+    public ArrayList<ItemCartDto> getAllItemCarts() throws SQLException;
 }

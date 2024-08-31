@@ -1,0 +1,18 @@
+CREATE TABLE itemCart (
+    orderId VARCHAR(50) NOT NULL,
+    ItemCode VARCHAR(50) NOT NULL,
+    ItemName VARCHAR(100) NOT NULL,
+    qty INT NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    Total DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE orders (
+    orderID VARCHAR(355) NOT NULL PRIMARY KEY,
+    orderDate DATE NOT NULL,
+    customerId VARCHAR(355) NOT NULL,
+    customerName VARCHAR(100) NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    discount DECIMAL(10,2),
+    subtotal DECIMAL(10,2) NOT NULL
+);
